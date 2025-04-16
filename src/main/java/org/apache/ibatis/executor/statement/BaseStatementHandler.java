@@ -1,5 +1,5 @@
 /*
- *    Copyright 2009-2023 the original author or authors.
+ *    Copyright 2009-2025 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -90,6 +90,7 @@ public abstract class BaseStatementHandler implements StatementHandler {
       statement = instantiateStatement(connection);
       setStatementTimeout(statement, transactionTimeout);
       setFetchSize(statement);
+      setMaxRows(statement);
       return statement;
     } catch (SQLException e) {
       closeStatement(statement);
@@ -124,6 +125,13 @@ public abstract class BaseStatementHandler implements StatementHandler {
     Integer defaultFetchSize = configuration.getDefaultFetchSize();
     if (defaultFetchSize != null) {
       stmt.setFetchSize(defaultFetchSize);
+    }
+  }
+
+  protected void setMaxRows(Statement stmt) throws SQLException {
+    Integer maxRows = mappedStatement.getMaxRows();
+    if (maxRows != null) {
+      stmt.setMaxRows(maxRows);
     }
   }
 

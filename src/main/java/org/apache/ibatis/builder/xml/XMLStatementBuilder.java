@@ -131,6 +131,7 @@ public class XMLStatementBuilder extends BaseBuilder {
     StatementType statementType = StatementType
         .valueOf(context.getStringAttribute("statementType", StatementType.PREPARED.toString()));
     Integer fetchSize = context.getIntAttribute("fetchSize");
+    Integer maxRows = context.getIntAttribute("maxRows");
     Integer timeout = context.getIntAttribute("timeout");
     String parameterMap = context.getStringAttribute("parameterMap");
     String resultType = context.getStringAttribute("resultType");
@@ -149,9 +150,10 @@ public class XMLStatementBuilder extends BaseBuilder {
     String resultSets = context.getStringAttribute("resultSets");
     boolean dirtySelect = context.getBooleanAttribute("affectData", Boolean.FALSE);
 
-    builderAssistant.addMappedStatement(id, sqlSource, statementType, sqlCommandType, fetchSize, timeout, parameterMap,
-        parameterTypeClass, resultMap, resultTypeClass, resultSetTypeEnum, flushCache, useCache, resultOrdered,
-        keyGenerator, keyProperty, keyColumn, databaseId, langDriver, resultSets, dirtySelect, paramNameResolver);
+    builderAssistant.addMappedStatement(id, sqlSource, statementType, sqlCommandType, fetchSize, maxRows, timeout,
+        parameterMap, parameterTypeClass, resultMap, resultTypeClass, resultSetTypeEnum, flushCache, useCache,
+        resultOrdered, keyGenerator, keyProperty, keyColumn, databaseId, langDriver, resultSets, dirtySelect,
+        paramNameResolver);
   }
 
   private void processSelectKeyNodes(String id, Class<?> parameterTypeClass, LanguageDriver langDriver) {
@@ -189,6 +191,7 @@ public class XMLStatementBuilder extends BaseBuilder {
     boolean resultOrdered = false;
     KeyGenerator keyGenerator = NoKeyGenerator.INSTANCE;
     Integer fetchSize = null;
+    Integer maxRows = null;
     Integer timeout = null;
     boolean flushCache = false;
     String parameterMap = null;
@@ -198,9 +201,9 @@ public class XMLStatementBuilder extends BaseBuilder {
     SqlSource sqlSource = langDriver.createSqlSource(configuration, nodeToHandle, parameterTypeClass);
     SqlCommandType sqlCommandType = SqlCommandType.SELECT;
 
-    builderAssistant.addMappedStatement(id, sqlSource, statementType, sqlCommandType, fetchSize, timeout, parameterMap,
-        parameterTypeClass, resultMap, resultTypeClass, resultSetTypeEnum, flushCache, useCache, resultOrdered,
-        keyGenerator, keyProperty, keyColumn, databaseId, langDriver, null, false, null);
+    builderAssistant.addMappedStatement(id, sqlSource, statementType, sqlCommandType, fetchSize, maxRows, timeout,
+        parameterMap, parameterTypeClass, resultMap, resultTypeClass, resultSetTypeEnum, flushCache, useCache,
+        resultOrdered, keyGenerator, keyProperty, keyColumn, databaseId, langDriver, null, false, null);
 
     id = builderAssistant.applyCurrentNamespace(id, false);
 

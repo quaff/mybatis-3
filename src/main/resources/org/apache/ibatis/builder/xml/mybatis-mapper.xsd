@@ -310,6 +310,7 @@
         </xs:simpleType>
       </xs:attribute>
       <xs:attribute name="fetchSize"/>
+      <xs:attribute name="maxRows"/>
       <xs:attribute name="timeout"/>
       <xs:attribute name="flushCache">
         <xs:simpleType>

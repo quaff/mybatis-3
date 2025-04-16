@@ -319,6 +319,7 @@ public class MapperAnnotationBuilder {
       }
 
       Integer fetchSize = null;
+      Integer maxRows = null;
       Integer timeout = null;
       StatementType statementType = StatementType.PREPARED;
       ResultSetType resultSetType = configuration.getDefaultResultSetType();
@@ -334,6 +335,7 @@ public class MapperAnnotationBuilder {
         useCache = options.useCache();
         // issue #348
         fetchSize = options.fetchSize() > -1 || options.fetchSize() == Integer.MIN_VALUE ? options.fetchSize() : null;
+        maxRows = options.maxRows() > -1 ? options.maxRows() : null;
         timeout = options.timeout() > -1 ? options.timeout() : null;
         statementType = options.statementType();
         if (options.resultSetType() != ResultSetType.DEFAULT) {
@@ -351,7 +353,8 @@ public class MapperAnnotationBuilder {
         }
       }
 
-      assistant.addMappedStatement(mappedStatementId, sqlSource, statementType, sqlCommandType, fetchSize, timeout,
+      assistant.addMappedStatement(mappedStatementId, sqlSource, statementType, sqlCommandType, fetchSize, maxRows,
+          timeout,
           // ParameterMapID
           null, parameterTypeClass, resultMapId, getReturnType(method, type), resultSetType, flushCache, useCache,
           // TODO gcode issue #577
@@ -560,6 +563,7 @@ public class MapperAnnotationBuilder {
     boolean useCache = false;
     KeyGenerator keyGenerator = NoKeyGenerator.INSTANCE;
     Integer fetchSize = null;
+    Integer maxRows = null;
     Integer timeout = null;
     boolean flushCache = false;
     String parameterMap = null;
@@ -571,9 +575,9 @@ public class MapperAnnotationBuilder {
         paramNameResolver, languageDriver);
     SqlCommandType sqlCommandType = SqlCommandType.SELECT;
 
-    assistant.addMappedStatement(id, sqlSource, statementType, sqlCommandType, fetchSize, timeout, parameterMap,
-        parameterTypeClass, resultMap, resultTypeClass, resultSetTypeEnum, flushCache, useCache, false, keyGenerator,
-        keyProperty, keyColumn, databaseId, languageDriver, null, false, paramNameResolver);
+    assistant.addMappedStatement(id, sqlSource, statementType, sqlCommandType, fetchSize, maxRows, timeout,
+        parameterMap, parameterTypeClass, resultMap, resultTypeClass, resultSetTypeEnum, flushCache, useCache, false,
+        keyGenerator, keyProperty, keyColumn, databaseId, languageDriver, null, false, paramNameResolver);
 
     id = assistant.applyCurrentNamespace(id, false);
 

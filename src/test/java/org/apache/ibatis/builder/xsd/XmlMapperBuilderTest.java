@@ -1,5 +1,5 @@
 /*
- *    Copyright 2009-2024 the original author or authors.
+ *    Copyright 2009-2025 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -42,6 +42,7 @@ class XmlMapperBuilderTest {
 
       MappedStatement mappedStatement = configuration.getMappedStatement("selectWithOptions");
       Assertions.assertEquals(Integer.valueOf(200), mappedStatement.getFetchSize());
+      Assertions.assertEquals(Integer.valueOf(100), mappedStatement.getMaxRows());
       Assertions.assertEquals(Integer.valueOf(10), mappedStatement.getTimeout());
       Assertions.assertEquals(StatementType.PREPARED, mappedStatement.getStatementType());
       Assertions.assertEquals(ResultSetType.SCROLL_SENSITIVE, mappedStatement.getResultSetType());

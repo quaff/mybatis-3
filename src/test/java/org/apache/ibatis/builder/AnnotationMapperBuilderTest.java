@@ -1,5 +1,5 @@
 /*
- *    Copyright 2009-2023 the original author or authors.
+ *    Copyright 2009-2025 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -38,6 +38,7 @@ class AnnotationMapperBuilderTest {
 
     MappedStatement mappedStatement = configuration.getMappedStatement("selectWithOptions");
     assertThat(mappedStatement.getFetchSize()).isEqualTo(200);
+    assertThat(mappedStatement.getMaxRows()).isEqualTo(100);
     assertThat(mappedStatement.getTimeout()).isEqualTo(10);
     assertThat(mappedStatement.getStatementType()).isEqualTo(StatementType.STATEMENT);
     assertThat(mappedStatement.getResultSetType()).isEqualTo(ResultSetType.SCROLL_INSENSITIVE);
@@ -100,7 +101,7 @@ class AnnotationMapperBuilderTest {
     void insertWithOptions(String name);
 
     @Select("select * from test")
-    @Options(fetchSize = 200, timeout = 10, statementType = StatementType.STATEMENT, resultSetType = ResultSetType.SCROLL_INSENSITIVE, flushCache = Options.FlushCachePolicy.TRUE, useCache = false, resultSets = "resultSets")
+    @Options(fetchSize = 200, maxRows = 100, timeout = 10, statementType = StatementType.STATEMENT, resultSetType = ResultSetType.SCROLL_INSENSITIVE, flushCache = Options.FlushCachePolicy.TRUE, useCache = false, resultSets = "resultSets")
     String selectWithOptions(Integer id);
 
     @Select("select * from test")

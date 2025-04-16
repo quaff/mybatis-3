@@ -38,6 +38,7 @@ public final class MappedStatement {
   private Configuration configuration;
   private String id;
   private Integer fetchSize;
+  private Integer maxRows;
   private Integer timeout;
   private StatementType statementType;
   private ResultSetType resultSetType;
@@ -111,6 +112,11 @@ public final class MappedStatement {
 
     public Builder fetchSize(Integer fetchSize) {
       mappedStatement.fetchSize = fetchSize;
+      return this;
+    }
+
+    public Builder maxRows(Integer maxRows) {
+      mappedStatement.maxRows = maxRows;
       return this;
     }
 
@@ -241,6 +247,10 @@ public final class MappedStatement {
 
   public Integer getFetchSize() {
     return fetchSize;
+  }
+
+  public Integer getMaxRows() {
+    return maxRows;
   }
 
   public Integer getTimeout() {

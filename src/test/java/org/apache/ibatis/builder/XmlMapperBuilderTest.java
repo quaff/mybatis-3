@@ -60,6 +60,7 @@ class XmlMapperBuilderTest {
 
       MappedStatement mappedStatement = configuration.getMappedStatement("selectWithOptions");
       assertThat(mappedStatement.getFetchSize()).isEqualTo(200);
+      assertThat(mappedStatement.getMaxRows()).isEqualTo(100);
       assertThat(mappedStatement.getTimeout()).isEqualTo(10);
       assertThat(mappedStatement.getStatementType()).isEqualTo(StatementType.PREPARED);
       assertThat(mappedStatement.getResultSetType()).isEqualTo(ResultSetType.SCROLL_SENSITIVE);
